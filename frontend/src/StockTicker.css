@@ -1,0 +1,24 @@
+.stock-ticker {
+    background-color: black;
+    color: white;
+    padding-top: 1.3%;
+    margin: 1% 0%;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.stock-ticker ul {
+    list-style-type: none;
+    display: flex;
+    animation: ticker-scroll 15s linear infinite;
+}
+
+.stock-ticker li {
+    margin-right: 20px;
+    font-size: 1rem;
+}
+
+@keyframes ticker-scroll {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
