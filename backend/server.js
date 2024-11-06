@@ -1,7 +1,8 @@
 /** Server for WallStreetSim. */
 
 const app = require('./app');
+const { PORT } = require("./config");
 
-app.listen(3000, function () {
-    console.log("Server is starting on port 3000");
+app.listen(PORT, function () {
+    console.log(`started on http://localhost:${PORT}`);
 });
