@@ -11,7 +11,7 @@ const BCRYPT_WORK_FACTOR = 10;
 const DB_URI = 
     process.env.NODE_ENV === 'test'
     ? 'postgresql:///wallstreetsim_test'
-    : 'postgresql:///wallstreetsim'
+    : 'postgresql://postgres.klqvcaifsqtqftsqqiwi:databasesecretpassword1124@aws-0-us-west-1.pooler.supabase.com:6543/postgres'
 
 module.exports = {
     BCRYPT_WORK_FACTOR,
