@@ -63,7 +63,7 @@ class Stock {
         const timeSeriesData = response.data['Time Series (Daily)'];
         console.log(`time series date: ${timeSeriesData}`);
         console.log(`status code: ${response.status}`);
-        console.log(`data: ${response.data}`);
+        console.log('response data:', JSON.stringify(response.data, null, 2));
         const processedData = Object.entries(timeSeriesData).map(([date, value]) => ({
             date,
             price: parseFloat(value['1. open'])
