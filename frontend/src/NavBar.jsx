@@ -68,7 +68,7 @@ function NavBar() {
             ) : (
                 <Container>
                 <Nav>
-                    <img src="../icon.svg" width="42" height="42" className="d-inline-block align-top"/>
+                    <img src={icon} width="42" height="42" className="d-inline-block align-top"/>
                     <Navbar.Brand style={{ margin: '0px 5px 0px' }}>
                         <Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>Wall Street Sim</Link>
                     </Navbar.Brand>
@@ -83,7 +83,7 @@ function NavBar() {
                             value={symbol}
                             onChange={handleSearchChange}
                         />
-                        <Button role="button" aria-label="searchButton" variant="success"><img src="../search.svg" width="25" height="25" className="d-inline-block align-top"/></Button>
+                        <Button role="button" aria-label="searchButton" variant="success"><img src={search} width="25" height="25" className="d-inline-block align-top"/></Button>
                     </Form>
                     <Button variant="secondary" href="/users/login" style={{ margin: '0px 8px 0px' }}>Login</Button>
                     <Button variant="secondary" href="/users/register" style={{ margin: '0px 0px 0px' }}>Register</Button>
