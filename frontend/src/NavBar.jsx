@@ -10,6 +10,8 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Link } from 'react-router-dom';
+import icon from "../icon.svg";
+import search from "../search.svg";
 
 function NavBar() {
     const { currentUser, logout } = useContext(UserContext);
@@ -38,7 +40,7 @@ function NavBar() {
             {currentUser ? (
 
                 <Container>
-                <img src="../icon.svg" width="42" height="42" className="d-inline-block align-top"/>
+                <img src={icon} width="42" height="42" className="d-inline-block align-top"/>
                 <Navbar.Brand style={{ margin: '0px 5px 0px' }}>
                     <Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>Wall Street Sim</Link>
                 </Navbar.Brand>
@@ -59,7 +61,7 @@ function NavBar() {
                         value={symbol}
                         onChange={handleSearchChange}
                     />
-                    <Button type="submit" variant="success"><img src="../search.svg" width="25" height="25" className="d-inline-block align-top"/></Button>
+                    <Button type="submit" variant="success"><img src={search} width="25" height="25" className="d-inline-block align-top"/></Button>
                 </Form>
                 <Button variant="secondary" onClick={logout} style={{ margin: '0px 8px 0px' }}>Logout</Button>
                 </Container>
