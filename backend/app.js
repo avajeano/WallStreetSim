@@ -9,8 +9,14 @@ const { authenticateJWT } = require('./ middleware/auth');
 
 const app = express();
 
+const allowedDomains = ['https://wallstreetsim-live.onrender.com', 'http://localhost:3001'];
+
+const corsOptions = {
+    origin: allowedDomains
+};
+
 // frontend
-app.use(cors({origin: "http://localhost:3001"}));
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(authenticateJWT);
 
