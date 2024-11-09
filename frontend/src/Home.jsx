@@ -13,9 +13,9 @@ function Home () {
     return (
         <>
             {currentUser ? (
-                <h2 style={{ fontWeight: 'bold'}}>Welcome back {currentUser.username}!</h2>
+                <h2 style={{ fontWeight: 'bold', margin: '40px 0px 20px'}}>Welcome back {currentUser.username}!</h2>
             ) : (
-                <h2 style={{ fontWeight: 'bold'}}>Welcome, please login or register.</h2>
+                <h2 style={{ fontWeight: 'bold', margin: '40px 0px 20px'}}>Welcome, please login or register.</h2>
             )}
             <Card className="bg-dark text-white">
             <Card.Title style={{ fontWeight: 'bold'}}>NYSE Simulator</Card.Title>
