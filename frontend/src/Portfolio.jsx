@@ -48,7 +48,7 @@ function Portfolio () {
                     <tr>
                         <th>Stock</th>
                         <th>Quantity</th>
-                        <th>Purchase Price</th>
+                        <th>Average Purchase Price</th>
                         <th>Total 'Investment'</th>
                         <th>Latest Price</th>
                         <th>ROI</th>
@@ -58,6 +58,7 @@ function Portfolio () {
                     {portfolio.map((stock) => {
                         const totalInvestment = (stock.quantity * stock.purchase_price).toFixed(2);
                         const ROI = ((stock.quantity * stock.latest_price)-(stock.quantity * stock.purchase_price)).toFixed(2);
+                        const averagePurchasePrice = Number(stock.purchase_price).toFixed(2);
 
                         const negativeROI = ROI < 0;
 
@@ -65,7 +66,7 @@ function Portfolio () {
                         <tr key={stock.stock_symbol}>
                             <td>{stock.stock_symbol}</td>
                             <td>{stock.quantity}</td>
-                            <td>${stock.purchase_price}</td>
+                            <td>${averagePurchasePrice}</td>
                             <td>${totalInvestment}</td>
                             <td>${stock.latest_price}</td>
                             <td className={negativeROI ? 'text-danger' : 'text-success'}>${ROI}</td>

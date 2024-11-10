@@ -185,17 +185,22 @@ class User {
      * 
      * - username
      * 
-     * Returns sum of 'investments'
+     * Returns sum of 'investments' and average purchase price 
      */
     static async getPortfolio(username) {
         const result = await db.query(
-            `SELECT p.stock_symbol, p.quantity, p.purchase_price, sh.price AS latest_price
-            FROM portfolio p
-            JOIN stocks s ON p.stock_symbol = s.symbol
-            JOIN stock_history sh ON s.id = sh.stock_id
-            WHERE p.user_username = $1
-            AND sh.date = (SELECT MAX(date) FROM stock_history WHERE stock_id = s.id)`,
-            [username]
+            `SELECT 
+            p.stock_symbol,
+            SUM(p.quantity) as quantity,
+            SUM(p.quantity * p.purchase_price) / SUM(p.quantity) as purchase_price,
+            sh.price AS latest_price
+        FROM portfolio p
+        JOIN stocks s ON p.stock_symbol = s.symbol
+        JOIN stock_history sh ON s.id = sh.stock_id
+        WHERE p.user_username = $1
+        AND sh.date = (SELECT MAX(date) FROM stock_history WHERE stock_id = s.id)
+        GROUP BY p.stock_symbol, sh.price`,
+        [username]
         );
         return result.rows;
     }
