@@ -1,0 +1,9 @@
+.watchlist {
+    justify-content: center;
+    background-color: whiteSmoke;
+    padding: 2% 2% 1% 2%;
+    margin-left: 300px;
+    width: 50%;
+    max-height: 700px;
+    overflow-y: auto;
+}
