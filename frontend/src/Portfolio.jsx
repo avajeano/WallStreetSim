@@ -3,6 +3,7 @@
  */
 
 import React, { useContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import UserContext from "./UserContext";
 import API from "./api";
 import Spinner from 'react-bootstrap/Spinner';
@@ -14,23 +15,30 @@ function Portfolio () {
     const [portfolio, setPortfolio] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
+        if (!currentUser) {
+            // if user is not logged in, redirect
+            alert('login to access portfolio');
+            setIsLoading(false);
+            navigate('/');
+            return;
+        }
+
         async function fetchPortfolio() {
             try {
                 const data = await API.getPortfolio(currentUser.username);
                 setPortfolio(data);
                 setIsLoading(false);
             }   catch (err) {
-                console.error('error fetching portfolio', err);
                 setError('failed to load portfolio');
                 setIsLoading(false);
             }
         }
-        if (currentUser) {
-            fetchPortfolio();
-        }
-    }, [currentUser]);
+        fetchPortfolio();
+
+    }, [currentUser, navigate]);
 
     if (isLoading) return <Spinner animation="border" />;
     if (error) return <Alert variant="danger">{error}</Alert>

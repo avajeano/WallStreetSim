@@ -3,6 +3,7 @@
  */
 
 import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import UserContext from "./UserContext";
 import API from './api';
 import Spinner from 'react-bootstrap/Spinner';
@@ -10,6 +11,7 @@ import Alert from 'react-bootstrap/Alert';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { Link } from 'react-router-dom';
 import StockTicker from "./StockTicker";
+import './WatchList.css';
 
 function WatchList () {
     const { currentUser } = useContext(UserContext);
@@ -17,31 +19,36 @@ function WatchList () {
     const [latestPrices, setLatestPrices] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
+        if (!currentUser) {
+            // if user is not logged in, redirect
+            alert('login to access watchlist');
+            setIsLoading(false);
+            navigate('/');
+            return;
+        }
+
         async function fetchWatchlist() {
             try {
                 const { watchlist, latestPrices } = await API.getWatchlistWithPrices(currentUser.username);
-                console.log('watchlist data:', watchlist);
                 setWatchlist(watchlist);
                 setLatestPrices(latestPrices);
                 setIsLoading(false);
             }   catch (err) {
-                console.error('failed to fetch watchlist:', err);
                 setError('failed to load watchlist');
                 setIsLoading(false);
             }
         }
-        if (currentUser) {
-            fetchWatchlist();
-        }
-    }, [currentUser]);
+        fetchWatchlist();
+    }, [currentUser, navigate]);
 
     if (isLoading) return <Spinner animation="border" />;
     if (error) return <Alert variant="danger">{error} </Alert>
 
     return (
-        <div style={{ backgroundColor: 'whiteSmoke', padding: '2% 2% 1% 2%'}}>
+        <div className="watchlist">
             {/* stock ticker banner */}
             <StockTicker tickerData={latestPrices} />
             <div style={{width: '100%' }}>
@@ -60,7 +67,7 @@ function WatchList () {
 
                             return (
                                 <Link to={`/stocks/${stockSymbol}`} key={stockSymbol} style={{ textDecoration: 'none' }}>
-                                <ListGroup.Item variant="secondary" style={{ display: 'flex', alignItems: 'center', margin: '3px 0px 3px 350px', width: '40%' }} action as="li">
+                                <ListGroup.Item variant="secondary" className="list-item" style={{ display: 'flex', alignItems: 'center', margin: '3px 0px 3px' }} action as="li">
                                     <span style={{ flex: '2', textAlign: 'center', fontWeight: 'bold' }}>{stockSymbol}</span>
                                     <span style={{ flex: '1', textAlign: 'left' }}>
                                         {isPriceUp && <span style={{ color: 'green', marginRight: '5px' }}>▲</span>}

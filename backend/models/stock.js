@@ -23,8 +23,6 @@ class Stock {
     // retrieve cached data from the database 
     static async getCachedData(stockId) {
         const today = getLocalTodayDate();
-        console.log("today's date:", today);
-
 
         // check if the data for the latest date is alredy in the stock_history table
         const cachedDataCheck = await db.query(
@@ -36,12 +34,8 @@ class Stock {
             [stockId]
         );
 
-        console.log('Most recent cached date:', cachedDataCheck.rows[0]?.date.toISOString().split('T')[0]);
-        console.log('Date comparison result:', cachedDataCheck.rows[0]?.date.toISOString().split('T')[0] === today);
-
         // if today's data is found in the cache, return it
         if (cachedDataCheck.rows.length > 0 && cachedDataCheck.rows[0].date.toISOString().split('T')[0] === today) {
-            console.log('returning cached data for today')
             return cachedDataCheck.rows;
         }
 
@@ -51,7 +45,6 @@ class Stock {
 
     // function to fetch stock from the the external API
     static async fetchFromAPI(symbol) {
-        console.log('fetching from API');
         const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=4ON4JY2HJ0LAQ66Z`; 
         const response = await axios.get(url);
 
@@ -61,9 +54,6 @@ class Stock {
         }
 
         const timeSeriesData = response.data['Time Series (Daily)'];
-        console.log(`time series date: ${timeSeriesData}`);
-        console.log(`status code: ${response.status}`);
-        console.log('response data:', JSON.stringify(response.data, null, 2));
         const processedData = Object.entries(timeSeriesData).map(([date, value]) => ({
             date,
             price: parseFloat(value['1. open'])
@@ -115,7 +105,6 @@ class Stock {
             }
 
             // attempt to retrieve cached data
-            console.log('attempting to retrieve cached data');
             const cachedData = await Stock.getCachedData(stockId);
 
             // if we have valid cached data return it
@@ -145,7 +134,6 @@ class Stock {
             );
 
             if (fallbackCachedData.rows.length > 0) {
-                console.log('returning cached data due to API error');
                 return new Stock(symbol, fallbackCachedData.rows);
             }
 

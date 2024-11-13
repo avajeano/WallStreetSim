@@ -1,7 +1,10 @@
 .stock-ticker {
+    display: flex;
+    align-items: center;
     background-color: black;
     color: white;
-    padding-top: 1.3%;
+    height: 40px;
+    padding: 13px 0px 0px;
     margin: 1% 0%;
     overflow: hidden;
     white-space: nowrap;

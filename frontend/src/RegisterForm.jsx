@@ -17,6 +17,7 @@ function RegisterForm() {
         email: ""
     }
     const [formData, setFormData] = useState(initialState);
+    const [error, setError] = useState("");
     const { setToken } = useContext(UserContext);
     const navigate = useNavigate();
 
@@ -30,6 +31,16 @@ function RegisterForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // check password length
+        if (formData.password.length < 6) {
+            setError("password must be at least 6 characters long");
+            // prevent form submission
+            return;
+        }
+        // clear any previous errors 
+        setError("");
+
         try {
             // register user and gets the token
             const token = await API.registerUser(formData);
@@ -81,6 +92,8 @@ function RegisterForm() {
                                 placeholder="password"
                                 value={formData.password}
                                 onChange={handleChange} />
+                            {/* display error if password min length is not met */}
+                            {error && <Form.Text className="text-danger">{error}</Form.Text>}
                         </Form.Group>
                     </Row>
                     <Row className="mb-3">

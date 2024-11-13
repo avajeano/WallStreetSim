@@ -50,8 +50,7 @@ function StockDetail() {
                 }
 
             }   catch (err) {
-                setError("failed to fetch stock data");
-                console.error(err);
+                setError('failed to fetch stock data');
             }
         }
         fetchStock();
@@ -67,7 +66,7 @@ function StockDetail() {
             setIsInWatchlist(true);
             alert(`${symbol} added to watchlist`)
         }   catch (err) {
-            console.error('error adding to watchlist', err);
+            alert(`error adding ${symbol} to watchlist`)
         }
     };
 
@@ -78,7 +77,7 @@ function StockDetail() {
             setIsInWatchlist(false);
             alert(`${symbol} removed from watchlist`);
         }   catch (err) {
-            console.error('error removing from watchlist', err);
+            alert(`error removing ${symbol} from watchlist`)
         }
     };
 
@@ -90,7 +89,7 @@ function StockDetail() {
             alert(`${quantity} shares of ${symbol} bought at ${latestPrice}`);
             setShowForm(false);
         }   catch (err) {
-            console.error('error buying stock', err);
+            alert(`error buying ${symbol}`)
         }
     };
 

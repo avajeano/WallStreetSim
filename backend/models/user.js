@@ -107,16 +107,8 @@ class User {
      */
 
     static async addToWatchlist(username, symbol) {
-       // get or create the stock in the db
         try {
             await Stock.getStock(symbol);
-
-            // const stockCheck = await db.query(
-            //     `SELECT id FROM stocks WHERE symbol = $1`,
-            //     [symbol]
-            // );
-
-            // const stockId = stockCheck.rows[0].id;
             
             // add to watchlist 
             await db.query(

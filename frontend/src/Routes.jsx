@@ -6,6 +6,7 @@ import LoginForm from "./LoginForm";
 import Home from "./Home";
 import WatchList from "./WatchList";
 import Portfolio from "./Portfolio";
+import NotFound from "./NotFound";
 
 function appRoutes() {
     return (
@@ -16,6 +17,7 @@ function appRoutes() {
             <Route path="/" element={<Home />} />
             <Route path="/users/:username/watchlist" element={<WatchList /> } />
             <Route path="/users/:username/portfolio" element={<Portfolio />} />
+            <Route path="*" element={<NotFound />} />
         </Routes>
     )
 }
