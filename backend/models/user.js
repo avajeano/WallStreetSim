@@ -22,7 +22,7 @@ class User {
         );
         
         if (duplicateCheck.rows[0]) {
-            throw new err('username not available');
+            throw new Error('username not available');
         }
 
         const hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR);
